@@ -1,7 +1,5 @@
 package com.example.rental;
 
-import java.sql.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,36 +17,40 @@ public class Car {
     int price = 0;
     boolean rented = false;
     @Column(nullable = true)
-    Date from_date = null;
+    String from_date = null;
     @Column(nullable = true)
-    Date to_date = null;
-    int user_id = 0;
+    String to_date = null;
+    int renter_id = 0;
 
     public Car() {
         model = "Car Model";
     }
 
-    public Date getTo_date() {
+    public Long getId() {
+        return id;
+    }
+
+    public String getTo_date() {
         return to_date;
     }
 
-    public void setTo_date(Date to_date) {
+    public void setTo_date(String to_date) {
         this.to_date = to_date;
     }
 
-    public int getUser_id() {
-        return user_id;
+    public int getRenter_id() {
+        return renter_id;
     }
 
-    public void setUser_id(int user_id) {
-        this.user_id = user_id;
+    public void setRenter_id(int renter_id) {
+        this.renter_id = renter_id;
     }
 
-    public Date getFrom_date() {
+    public String getFrom_date() {
         return from_date;
     }
 
-    public void setFrom_date(Date from_date) {
+    public void setFrom_date(String from_date) {
         this.from_date = from_date;
     }
 

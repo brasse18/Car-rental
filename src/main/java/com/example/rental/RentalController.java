@@ -7,8 +7,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestParam;
 
-
-
 @RestController
 @RequestMapping("/cars")
 
@@ -21,7 +19,6 @@ public class RentalController {
 
 	@GetMapping("/all")
 	public List<Car> sendCar() {
-        //System.out.println("returning Car List");
 		return carRepository.getAllCars();
 	}
 
@@ -33,6 +30,11 @@ public class RentalController {
 	@GetMapping("/car")
 	public Car getMethodName(@RequestParam int id) {
 		return carRepository.getCar(id);
+	}
+
+	@GetMapping("/rent")
+	public int getMethodName(@RequestParam int id, @RequestParam String from_date, @RequestParam String to_date, @RequestParam int renter_id) {
+		return carRepository.rentCar(id, from_date, to_date, renter_id);
 	}
 
 }

@@ -1,5 +1,5 @@
 INSERT INTO
-    cars (MODEL, PRICE, RENTED, USER_ID)
+    cars (MODEL, PRICE, RENTED, RENTER_ID)
 VALUES
     ('Volvo S60', 1500, false, 0),
     ('Volkswagen Golf', 1333, false, 0),
@@ -7,7 +7,7 @@ VALUES
     ('Ford Transit', 2400, false, 0);
 
 INSERT INTO
-    users (NAME)
+    renters (NAME)
 VALUES
     ('Admin'),
     ('Bob'),
