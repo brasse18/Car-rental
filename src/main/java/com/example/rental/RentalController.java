@@ -8,33 +8,45 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
-@RequestMapping("/cars")
+@RequestMapping("/")
 
 public class RentalController {
     private final CarRepository carRepository;
+	private final RenterRepository renterRepository;
 
-	public RentalController(CarRepository carRepository) {
+	public RentalController(CarRepository carRepository, RenterRepository renterRepository) {
 		this.carRepository = carRepository;
+		this.renterRepository = renterRepository;
 	}
 
-	@GetMapping("/all")
-	public List<Car> sendCar() {
+	@GetMapping("cars")
+	public List<Car> getCars() {
+		System.out.println("Sending: Cars");
 		return carRepository.getAllCars();
 	}
 
-	@GetMapping("/allFree")
-	public List<Car> getMethodName() {
-		return carRepository.getAllFreeCars();
-	}
-
-	@GetMapping("/car")
-	public Car getMethodName(@RequestParam int id) {
+	@GetMapping("car")
+	public Car getCar(@RequestParam int id) {
+		System.out.println("Sending: Car[" + Integer.toString(id) + "]");
 		return carRepository.getCar(id);
 	}
 
-	@GetMapping("/rent")
-	public int getMethodName(@RequestParam int id, @RequestParam String from_date, @RequestParam String to_date, @RequestParam int renter_id) {
-		return carRepository.rentCar(id, from_date, to_date, renter_id);
+	@GetMapping("rent")
+	public int rentCar(@RequestParam int car_id, @RequestParam String from_date, @RequestParam String to_date, @RequestParam String renter_name) {
+		System.out.println("renting: Car[" + Integer.toString(car_id) + "]");
+		return renterRepository.AddRent(car_id, from_date, to_date, renter_name);
 	}
+
+	@GetMapping("rents/all")
+	public List<Renter> getRenters() {
+		System.out.println("Sending: Rents");
+		return renterRepository.getAllRents();
+	}
+
+	@GetMapping("rents/carId")
+	public List<Renter> getRentsOfCar(@RequestParam int id) {
+		return renterRepository.getRentsOfCar(id);
+	}
+
 
 }

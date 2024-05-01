@@ -7,25 +7,53 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "renters")
+@Table(name = "rents")
 public class Renter {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
-    String name;
+    Long car_id;
+    String from_date;
+    String to_date;
+    String renter_name;
 
-    public Renter(String name) {
-        this.name = name;
+    public Renter() {
+        this.renter_name = "Renter name";
     }
 
     public Long getId() {
         return id;
     }
 
-    public String getName() {
-        return name;
+    public void setCarId(Long id) {
+        this.car_id = id;
     }
-    public void setName(String name) {
-        this.name = name;
+
+    public Long getCarId () {
+        return this.car_id;
+    }
+
+    public void setFromDate(String date) {
+        this.from_date = date;
+    }
+
+    public String getFromDate() {
+        return this.from_date;
+    }
+
+    public void setToDate(String date) {
+        this.to_date = date;
+    }
+
+    public String getToDate() {
+        return this.to_date;
+    }
+
+    public void setRenterName(String name) {
+        this.renter_name = name;
+    }
+
+    public String getRenterName() {
+        return this.renter_name;
     }
 }

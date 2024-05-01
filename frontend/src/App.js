@@ -1,27 +1,23 @@
-import './App.css';
-import { Component } from 'react';
+import "./App.css";
+import "primereact/resources/themes/mira/theme.css";
+import 'primeicons/primeicons.css';
+import React, { Component } from "react";
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+import RentCarComponent from "./component/RentCar";
+import AdminPanelComponent from "./component/AdminPanel";
 
 class App extends Component {
-	state = {
-		message: "If spring backend is running and database is running, then this message should be replaced!"
-	};
-	async componentDidMount() {
-		await this.getHelloWorld();
-	}
-	async getHelloWorld() {
-		const response           = await fetch('/helloworld');
-		const helloWorldResponse = await response.json();
-		this.setState({ message: helloWorldResponse.message });
-	}
-	render() {
-		return (
-			<div className="App">
-				<p>
-					{this.state.message}
-				</p>
-			</div>
-		);
-	}
+    render() {
+        return (
+            <Router>
+                <Routes>
+                    <Route exact path="/" element={<RentCarComponent />} />
+                    <Route path="/rent" element={<RentCarComponent />} />
+					<Route path="/admin" element={<AdminPanelComponent />} />
+                </Routes>
+            </Router>
+        );
+    }
 }
 
 export default App;

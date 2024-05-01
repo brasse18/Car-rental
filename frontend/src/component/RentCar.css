@@ -1,0 +1,13 @@
+.spacers {
+    margin-top: 30px;
+}
+
+.W-60p {
+    max-width: 60%;
+}
+
+.center-content {
+    display: grid;
+    place-items: center; /* Centrera både horisontellt och vertikalt */
+    height: 100vh; /* Full höjd av fönstret */
+  }

@@ -18,6 +18,7 @@ case $input in
         ./mvnw spring-boot:run
         ;;
     "frontend")
+        cd frontend
         npm start
         ;;
     *)

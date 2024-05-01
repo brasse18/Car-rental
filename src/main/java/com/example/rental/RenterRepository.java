@@ -3,19 +3,26 @@ package com.example.rental;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 
-public interface RenterRepository extends JpaRepository<Car, Long> {
+public interface RenterRepository extends JpaRepository<Renter, Long> {
 
-	@Query(value = "SELECT * FROM renters", nativeQuery = true)
-	List<Renter> getAllRenters();
+	@Query(value = "SELECT * FROM rents", nativeQuery = true)
+	List<Renter> getAllRents();
 
-	@Query(value = "SELECT * FROM renters WHERE ID = :id", nativeQuery = true)
-	Renter getRenter(@Param("id")int id);
+	@Query(value = "SELECT * FROM rents WHERE CAR_ID = :id", nativeQuery = true)
+	List<Renter> getRentsOfCar(@Param("id") int id);
 
-	@Query(value = "UPDATE renters SET name = :name WHERE ID = :id", nativeQuery = true)
-	void SetNameOfRenter(
-		@Param("id")int id,
-		@Param("name") String name);
+	@Transactional
+    @Modifying
+	@Query(value = "INSERT INTO rents (CAR_ID, FROM_DATE, TO_DATE, RENTER_NAME) VALUES (:car_id, :to_date, :from_date, :renter_name)", nativeQuery = true)
+	int AddRent(
+			@Param("car_id") int car_id,
+			@Param("from_date") String fromDate,
+			@Param("to_date") String toDate,
+			@Param("renter_name") String renter_name);
+
 }
