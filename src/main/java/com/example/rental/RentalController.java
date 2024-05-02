@@ -12,11 +12,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 public class RentalController {
     private final CarRepository carRepository;
-	private final RenterRepository renterRepository;
+	private final RentRepository rentRepository;
 
-	public RentalController(CarRepository carRepository, RenterRepository renterRepository) {
+	public RentalController(CarRepository carRepository, RentRepository rentRepository) {
 		this.carRepository = carRepository;
-		this.renterRepository = renterRepository;
+		this.rentRepository = rentRepository;
 	}
 
 	@GetMapping("cars")
@@ -34,18 +34,18 @@ public class RentalController {
 	@GetMapping("rent")
 	public int rentCar(@RequestParam int car_id, @RequestParam String from_date, @RequestParam String to_date, @RequestParam String renter_name) {
 		System.out.println("renting: Car[" + Integer.toString(car_id) + "]");
-		return renterRepository.AddRent(car_id, from_date, to_date, renter_name);
+		return rentRepository.AddRent(car_id, from_date, to_date, renter_name);
 	}
 
 	@GetMapping("rents/all")
-	public List<Renter> getRenters() {
+	public List<Rent> getRenters() {
 		System.out.println("Sending: Rents");
-		return renterRepository.getAllRents();
+		return rentRepository.getAllRents();
 	}
 
 	@GetMapping("rents/carId")
-	public List<Renter> getRentsOfCar(@RequestParam int id) {
-		return renterRepository.getRentsOfCar(id);
+	public List<Rent> getRentsOfCar(@RequestParam int id) {
+		return rentRepository.getRentsOfCar(id);
 	}
 
 

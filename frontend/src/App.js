@@ -1,5 +1,5 @@
 import "./App.css";
-import "primereact/resources/themes/mira/theme.css";
+//import "primereact/resources/themes/mira/theme.css";
 import 'primeicons/primeicons.css';
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'

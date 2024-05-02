@@ -8,7 +8,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "rents")
-public class Renter {
+public class Rent {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
@@ -17,12 +17,16 @@ public class Renter {
     String to_date;
     String renter_name;
 
-    public Renter() {
+    public Rent() {
         this.renter_name = "Renter name";
     }
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public void setCarId(Long id) {

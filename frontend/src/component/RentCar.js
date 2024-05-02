@@ -9,17 +9,22 @@ import { Message } from "primereact/message";
 import { Toast } from "primereact/toast";
 import { Badge } from "primereact/badge";
 import "./RentCar.css";
+import "primereact/resources/themes/mira/theme.css";
 
 const RentCarComponent = (props) => {
-    const [rentingDates, setRentingDates] = useState([]);
-    const [selectedCar, setSelectedCar] = useState([]);
-    const [selectedRenter, setSelectedRenter] = useState([]);
-    const [birthDate, setBirthDate] = useState(null);
-    const [carList, setCarList] = useState([]);
-    const [rentList, setRentList] = useState([]);
-    const [totalRentCost, setTotalRentCost] = useState(0);
-    const [errMsgIsVisible, setErrMsgIsVisible] = useState(false);
-    const [errMessageText, setErrMessageText] = useState("");
+    const [rentingDates, setRentingDates] = React.useState(() => {
+        const startDate = new Date();
+        const endDate = new Date(startDate.getTime() + 86400000);
+        return [startDate, endDate];
+    });
+    const [selectedCar, setSelectedCar] = React.useState([]);
+    const [selectedRenter, setSelectedRenter] = React.useState([]);
+    const [birthDate, setBirthDate] = React.useState(null);
+    const [carList, setCarList] = React.useState([]);
+    const [rentList, setRentList] = React.useState([]);
+    const [totalRentCost, setTotalRentCost] = React.useState(0);
+    const [errMsgIsVisible, setErrMsgIsVisible] = React.useState(false);
+    const [errMessageText, setErrMessageText] = React.useState("");
     const messageToUser = useRef(null);
     let minDate = new Date();
 
@@ -63,6 +68,8 @@ const RentCarComponent = (props) => {
             price: car.price,
             code: car.id,
         }));
+
+        console.log(cars);
 
         setCarList(cars);
         return responseData;
@@ -110,6 +117,8 @@ const RentCarComponent = (props) => {
             } else {
                 displayMessage("Error", "We apologize, but your order could not be placed.");
             }
+        } else {
+            console.log("sdfsdfs");
         }
     };
 
@@ -204,9 +213,9 @@ const RentCarComponent = (props) => {
                 detail: message,
             });
         } else if (type === "Error") {
-            messageToUser.current.show({ severity: "error", summary: "Error", detail: message });
+            messageToUser.current.show({ severity: "error", summary: "Error", detail: message, sticky: true });
         } else {
-            messageToUser.current.show({ severity: "info", summary: "Info", detail: message });
+            messageToUser.current.show({ severity: "info", summary: "Info", detail: message,  sticky: true });
         }
     };
 
@@ -226,7 +235,7 @@ const RentCarComponent = (props) => {
     );
 
     return (
-        <div className="center-content">
+        <div className="center-content" id="rentalContainer">
             <div className="card justify-content-center W-60p">
                 <Toast ref={messageToUser} position="bottom-right" />
                 <Card title="Rent a Car" footer={footer}>
@@ -273,6 +282,7 @@ const RentCarComponent = (props) => {
                                 checkmark={true}
                                 filter
                                 id="carDropdown"
+                                data-testid="carDropdown"
                             />
                             <label htmlFor="CarLabel">Car</label>
                         </FloatLabel>
@@ -282,21 +292,21 @@ const RentCarComponent = (props) => {
                             <Calendar
                                 value={rentingDates}
                                 inputId="DateLabel"
-                                onChange={(e) => setRentingDates(e.value)}
+                                onChange={(e) => {
+                                    setRentingDates(e.value);
+                                }}
                                 minDate={minDate}
                                 selectionMode="range"
-                                readOnlyInput
-                                hideOnRangeSelection
-                                inline
-                                showWeek
                                 id="rentingDatesCalendar"
                             />
                             <label htmlFor="DateLabel">Rental duration</label>
                         </FloatLabel>
                     </div>
+                    <div data-testid="status">
                     {errMsgIsVisible && (
                         <Message severity="error" text={errMessageText} id="errMsg" />
                     )}
+                    </div>
                     <Panel header="Cost Summary" className="cost-summary-panel spacers">
                         <div className="p-grid p-justify-between">
                             <div className="p-col">

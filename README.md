@@ -26,7 +26,7 @@ Start the frontend by doing `npm install` followed by `npm start` in the `fronte
 
 ### 4. Start from bash script
 
-#### 4.1 start the backend
+#### 4.1 start the db
 Run `bash .run.sh db`.
 #### 4.2 start the backend
 Run `bash .run.sh backend`.

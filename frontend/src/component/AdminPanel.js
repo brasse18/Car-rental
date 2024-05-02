@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Panel } from "primereact/panel";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
+import "primereact/resources/themes/mira/theme.css";
 
 const AdminPanelComponent = () => {
     const [carList, setCarList] = useState([]);

@@ -24,6 +24,10 @@ public class Car {
         return id;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public int getPrice() {
         return price;
     }
