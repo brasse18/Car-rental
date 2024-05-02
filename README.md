@@ -1,34 +1,68 @@
 # Car Rental
-This project is based on the minimal bootstrap project 
-https://github.com/noxreview/bootstrap-project
 
-It is using Maven, Java 17, Docker, Node 16 LTS and NPM
+This project is based on the minimal bootstrap project [here](https://github.com/noxreview/bootstrap-project). It utilizes Maven, Java 17, Docker, Node 16 LTS, and NPM.
 
-## How to start the project
+## Getting Started
 
-### 1. Set up the database
-You may start a database with the following docker command based on the [Bitnami PostgreSQL Image](https://hub.docker.com/r/bitnami/postgresql/):
-`docker run --name postgresql -p 5432:5432 -e POSTGRESQL_USERNAME=my_user -e POSTGRESQL_PASSWORD=password123 -e POSTGRESQL_DATABASE=rental bitnami/postgresql:latest`
+### 1. Set up the Database
 
+Start a PostgreSQL database using the Bitnami PostgreSQL image:
 
-### 2. Start the backend
-The backend was bootstrapped with [Spring initializr](https://start.spring.io/) and is configured to run against a PostgreSQL database.
-Start the backend by running `./mvnw spring-boot:run`.
+```bash
+docker run --name postgresql -p 5432:5432 \
+  -e POSTGRESQL_USERNAME=my_user \
+  -e POSTGRESQL_PASSWORD=password123 \
+  -e POSTGRESQL_DATABASE=rental \
+  bitnami/postgresql:latest
+```
 
+After starting the database, populate it with initial tables and data:
 
-### 3. Start the frontend
-The frontend was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+```bash
+psql -h localhost -U my_user -d rental -a -f init_tables.sql
+psql -h localhost -U my_user -d rental -a -f insert.sql
+```
 
-See `package.json` for npm commands. The `package.json` has a proxy for the backend hosted at `http://localhost:8080`.
+### 2. Start the Backend
 
-Start the frontend by doing `npm install` followed by `npm start` in the `frontend` folder
+The backend, built with [Spring Initializr](https://start.spring.io/), connects to the PostgreSQL database.
 
+Run the following command to start the backend:
 
-### 4. Start from bash script
+```bash
+./mvnw spring-boot:run
+```
 
-#### 4.1 start the db
-Run `bash .run.sh db`.
-#### 4.2 start the backend
-Run `bash .run.sh backend`.
-#### 4.3 start the frontend
-Run `bash .run.sh frontend`.
+### 3. Start the Frontend
+
+The frontend, bootstrapped with [Create React App](https://github.com/facebook/create-react-app), communicates with the backend hosted at `http://localhost:8080`.
+
+To start the frontend, navigate to the `frontend` folder and run:
+
+```bash
+npm install
+npm start
+```
+
+### 4. Alternatively, Use Bash Scripts
+
+For convenience, bash scripts are provided to start each component:
+
+#### 4.1 Start the Database
+
+```bash
+bash .run.sh db
+```
+
+#### 4.2 Start the Backend
+
+```bash
+bash .run.sh backend
+```
+
+#### 4.3 Start the Frontend
+
+```bash
+bash .run.sh frontend
+```
+
